@@ -1,0 +1,22 @@
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+
+local url = "https://raw.githubusercontent.com/ВАШ_ЮЗЕР/ВАШ_РЕПО/main/whitelist.json"
+local ok, result = pcall(function()
+    return HttpService:GetAsync(url)
+end)
+if not ok then
+    warn("Ошибка загрузки whitelist")
+    return
+end
+
+local data = HttpService:JSONDecode(result)
+local allowed = data.users
+
+Players.PlayerAdded:Connect(function(player)
+    if table.find(allowed, player.UserId) then
+        print(player.Name .. " в whitelist — доступ разрешён")
+    else
+        player:Kick("You are not whitelisted.")
+    end
+end)
