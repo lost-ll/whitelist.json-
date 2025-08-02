@@ -1,10 +1,12 @@
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 
-local url = "https://raw.githubusercontent.com/lost-ll/whitelist.json-/refs/heads/main/whitelist_users.json"
+local url = "https://raw.githubusercontent.com/lost-ll/whitelist.json-/main/whitelist_users.json"
+
 local ok, result = pcall(function()
     return HttpService:GetAsync(url)
 end)
+
 if not ok then
     warn("Ошибка загрузки whitelist")
     return
